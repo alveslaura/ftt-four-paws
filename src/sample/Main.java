@@ -1,0 +1,35 @@
+package sample;
+
+import business.singleton.LocalStorage;
+import business.singleton.config.Config;
+import comuns.enums.RepositoryType;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Config.getInstance().setDataBase(RepositoryType.SQLSERVER);
+        if(LocalStorage.checkLocalStorage()) {
+            Parent root = FXMLLoader.load(getClass().getResource("ScreenMain.fxml"));
+            primaryStage.setTitle("Seja Bem-Vinde!");
+            primaryStage.setScene(new Scene(root, 1200, 700));
+            primaryStage.show();
+        } else{
+            Parent root = FXMLLoader.load(getClass().getResource("ScreenLogin.fxml"));
+            primaryStage.setTitle("4Paws, Bem-vinde!");
+            primaryStage.setScene(new Scene(root, 1200, 700));
+            primaryStage.show();
+        }
+
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
